@@ -272,7 +272,7 @@ teleportAuto_onlyWhenSafe 0
 teleportAuto_maxDmg 500
 teleportAuto_maxDmgInLock 0
 teleportAuto_deadly 1
-teleportAuto_useSkill 1
+teleportAuto_useSkill 0
 teleportAuto_useChatCommand
 teleportAuto_allPlayers 0
 teleportAuto_notPlayers
@@ -289,7 +289,7 @@ teleportAuto_equip_leftAccessory
 teleportAuto_equip_rightAccessory
 teleportAuto_lostHomunculus
 teleportAuto_useItemForRespawn
-teleportAuto_item1
+teleportAuto_item1 1
 teleportAuto_item2
 
 dealAuto 0
@@ -627,23 +627,12 @@ useSelf_skill {
 	inInventory
 	manualAI 0
 }
-useSelf_skill AL_HEAL {
-	lvl 5
-	hp < 50%
-}
-	
 
-useSelf_skill AL_INCAGI {
-	lvl 10
-	sp > 50
-	whenStatusInactive EFST_INC_AGI
-	notWhileSitting 1
-}
 
-useSelf_skill AL_BLESSING {
+useSelf_skill AC_CONCENTRATION {
 	lvl 10
-	sp > 65
-	whenStatusInactive EFST_BLESSING
+	sp > 70
+	whenStatusInactive EFST_CONCENTRATION 
 	notWhileSitting 1
 
 }
