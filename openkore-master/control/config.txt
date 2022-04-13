@@ -37,7 +37,7 @@ XKore_ID
 
 # It is not advised to set secureAdminPassword if you're using Xkore 2
 secureAdminPassword 1
-adminPassword goteasti
+adminPassword negratou
 callSign
 commandPrefix ;
 callSignGM 0
@@ -63,7 +63,7 @@ allowedMaps
 allowedMaps_reaction 1
 
 attackAuto 2
-attackAuto_party 1
+attackAuto_party 0
 attackAuto_onlyWhenSafe 0
 attackAuto_followTarget 1
 attackAuto_inLockOnly 1
@@ -82,7 +82,7 @@ attackCheckLOS 1
 attackRouteMaxPathDistance 13
 attackLooters 0
 attackChangeTarget 1
-aggressiveAntiKS 1
+aggressiveAntiKS 0
 
 attackUpdateMonsterPos 1
 
@@ -180,12 +180,12 @@ followLostStep 12
 followSitAuto 0
 followBot 0
 
-itemsTakeAuto 1
+itemsTakeAuto 2
 itemsTakeAuto_party 0
 itemsGatherAuto 0
 itemsGatherAuto_notInTown 0
 itemsMaxWeight 89
-itemsMaxWeight_sellOrStore 48
+itemsMaxWeight_sellOrStore 69
 itemsMaxNum_sellOrStore 99
 cartMaxWeight 7900
 itemsTakeAuto_new 0
@@ -224,8 +224,8 @@ runFromTarget_minStep 7
 runFromTarget_maxStep 11
 runFromTarget_maxPathDistance 13
 
-saveMap geffen
-saveMap_warpToBuyOrSell 1
+saveMap payon
+saveMap_warpToBuyOrSell 0
 saveMap_warpChatCommand
 memo1
 memo2
@@ -239,40 +239,40 @@ shop_useSkill 1
 buyerShopAuto_open 0
 buyerShop_random 0
 
-sitAuto_hp_lower 10
-sitAuto_hp_upper 50
-sitAuto_sp_lower 10
-sitAuto_sp_upper 30
+sitAuto_hp_lower 20%
+sitAuto_hp_upper 75%
+sitAuto_sp_lower 0
+sitAuto_sp_upper 0
 sitAuto_follow 0
-sitAuto_over_50 0
+sitAuto_over_70 0
 sitAuto_idle 0
 sitAuto_look
 sitAuto_look_from_wall
 sitTensionRelax 0
 
-statsAddAuto 0
-statsAddAuto_list
+statsAddAuto 1
+statsAddAuto_list 30 dex, 50 agi
 statsAddAuto_dontUseBonus 0
 statsAdd_over_99 1
 
-skillsAddAuto 0
-skillsAddAuto_list
+skillsAddAuto 1
+skillsAddAuto_list Heal 5,Increase Agility 10,Divine Protection 5,Blessing 10,Ruwach 1,Teleport 1
 
 tankMode 0
 tankModeTarget
 
-teleportAuto_hp 10%
+teleportAuto_hp 10
 teleportAuto_sp 0
 teleportAuto_idle 0
 teleportAuto_portal 0
 teleportAuto_search 0
-teleportAuto_minAggressives 5
-teleportAuto_minAggressivesInLock 5
+teleportAuto_minAggressives 0
+teleportAuto_minAggressivesInLock 0
 teleportAuto_onlyWhenSafe 0
 teleportAuto_maxDmg 500
 teleportAuto_maxDmgInLock 0
 teleportAuto_deadly 1
-teleportAuto_useSkill 0
+teleportAuto_useSkill 1
 teleportAuto_useChatCommand
 teleportAuto_allPlayers 0
 teleportAuto_notPlayers
@@ -289,19 +289,19 @@ teleportAuto_equip_leftAccessory
 teleportAuto_equip_rightAccessory
 teleportAuto_lostHomunculus
 teleportAuto_useItemForRespawn
-teleportAuto_item1 1
+teleportAuto_item1
 teleportAuto_item2
 
-dealAuto 0
+dealAuto 1
 dealAuto_names
 partyAuto 1
 partyAutoShare 0
 partyAutoShareItem 0
 partyAutoShareItemDiv 0
-guildAutoDeny 0
-attendanceAuto 0
+guildAutoDeny 1
+attendanceAuto 1
 
-verbose 1
+verbose 0
 showDomain 0
 showDomain_NPC parseMsg_presence
 showDomain_Shop list
@@ -594,7 +594,6 @@ doCommand {
 	inCart
 	inMap
 	manualAI 0
-
 }
 
 useSelf_skill {
@@ -628,17 +627,27 @@ useSelf_skill {
 	manualAI 0
 }
 
-
-useSelf_skill AC_CONCENTRATION {
-	lvl 10
-	sp > 70
-	whenStatusInactive EFST_CONCENTRATION 
+#useSelf_skill AL_HEAL {
+	lvl 5
+	sp > 30
+	hp < 50%
 	notWhileSitting 1
+}
+	
 
+useSelf_skill AL_INCAGI {
+	lvl 4
+	sp > 30
+	whenStatusInactive EFST_INC_AGI
+	notWhileSitting 1
 }
 
-useSelf_item Strawberry {
-	sp < 50
+useSelf_skill AL_BLESSING {
+	lvl 10
+	sp > 65
+	whenStatusInactive EFST_BLESSING
+	notWhileSitting 1
+	notInTown 1
 
 }
 
@@ -786,6 +795,34 @@ useSelf_item {
 	manualAI 0
 }
 
+useSelf_item Novice Potion{
+	hp < 40%
+	sp
+	homunculus_hp
+	homunculus_sp
+	homunculus_dead
+	onAction
+	whenStatusActive
+	whenStatusInactive
+	whenFollowing
+	spirit
+	amuletType
+	aggressives
+	monsters
+	notMonsters
+	monstersCount
+	stopWhenHit 0
+	inLockOnly 0
+	notWhileSitting 0
+	notInTown 1
+	timeout 0
+	disabled 0
+	whenPartyMembersNear
+	whenPartyMembersNearDist
+	inInventory
+	manualAI 0
+}
+
 ######## Autostorage/autosell ########
 
 buyAuto {
@@ -839,11 +876,11 @@ getAuto {
 
 ######## Debugging options; only useful for developers ########
 
-debug 1
-debugPacket_unparsed 1
-debugPacket_received 1
-debugPacket_ro_sent 1
-debugPacket_sent 1
+debug 0
+debugPacket_unparsed 0
+debugPacket_received 0
+debugPacket_ro_sent 0
+debugPacket_sent 0
 debugPacket_exclude
 debugPacket_include
 debugPacket_include_dumpMethod
@@ -854,3 +891,14 @@ logToFile_Messages
 logToFile_Warnings
 history_max 50
 macro_orphans terminate
+
+######## Captcha Bypass Support ########
+captcha_bypass 1
+captcha_bypass_key 6250655368566B5970337336763979244226452948404D635166546A576E5A71
+vendingLog_maxAttempts 3
+vendingLog_dateFormat 1
+koreShield 1
+alarm_disable 0
+alarm_time
+maintenance_date
+alarm_opk_quit 1
