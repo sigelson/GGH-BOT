@@ -1,2 +1,1 @@
-# GGH-BOT-SELLY
- Bahog dagta bot
+# GGH-BOT
